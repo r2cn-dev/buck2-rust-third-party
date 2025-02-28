@@ -10,8 +10,6 @@ apt-get install -y \
   build-essential \
   openssl \
   libssl-dev \
-  fuse3 \
-  libfuse3-dev \
   pkg-config \
   cmake \
   wget \

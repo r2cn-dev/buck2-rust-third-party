@@ -1,12 +1,6 @@
 {
   "name": "Buck2 for Rust Dev Container",
-  "extensions": [
-    "cschleiden.vscode-github-actions",
-    "ms-vsliveshare.vsliveshare",
-    "matklad.rust-analyzer",
-    "serayuzgur.crates",
-    "vadimcn.vscode-lldb"
-  ],
+  "extensions": [],
   "dockerFile": "Dockerfile",
   "settings": {
     "editor.formatOnSave": true,
@@ -19,6 +13,6 @@
   "hostRequirements": {
     "cpus": 8,
     "memory": "32gb",
-    "storage": "64gb"
+    "storage": "100gb"
   }
 }
