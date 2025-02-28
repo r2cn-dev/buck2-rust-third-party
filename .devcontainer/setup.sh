@@ -20,12 +20,7 @@ apt-get install -y \
 
 ## Install rustup and common components
 curl https://sh.rustup.rs -sSf | sh -s -- -y
-source $HOME/.cargo/env
-rustup install default
-rustup component add rustfmt
-rustup component add clippy
-cargo install cargo-expand
-cargo install cargo-edit
+source /root/.cargo/env
 
 ## Install Buck2
 wget https://github.com/facebook/buck2/releases/download/2025-02-01/buck2-x86_64-unknown-linux-musl.zst
