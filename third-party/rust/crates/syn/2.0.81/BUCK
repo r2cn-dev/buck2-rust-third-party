@@ -1,0 +1,23 @@
+load("@prelude//rust:cargo_package.bzl", "cargo")
+
+# This BUCK file is generated based on Cargo.toml
+# Parser for Rust source code
+
+cargo.rust_library(
+    name = "syn",
+    edition = "2021",
+    srcs = glob(["src/**/*.rs"]),
+    crate_root = "src/lib.rs",
+    visibility = ["PUBLIC"],
+    features = ["default"],
+    deps = [
+        "//third-party/rust/crates/proc-macro2/1.0.83:proc-macro2",
+        "//third-party/rust/crates/quote/1.0.35:quote",
+        "//third-party/rust/crates/unicode-ident/1.0.17:unicode-ident",
+    ],
+    extra_srcs = [
+        "README.md",
+        "LICENSE-APACHE",
+        "LICENSE-MIT",
+    ],
+)

@@ -32,8 +32,7 @@ cargo.rust_library(
     ],
     features = FEATURES["default"],  # Use default features
     deps = [
-        # Add libc dependency if available in your Buck setup
-        # "//third-party/rust/crates/libc/0.2.169:libc",
+        "//third-party/rust/crates/libc/0.2.169:libc",
     ],
     env = {
         # Environment variables that would typically be set by build.rs
@@ -58,8 +57,7 @@ cargo.rust_library(
     ],
     features = FEATURES["default"] + ["experimental"],
     deps = [
-        # Add libc dependency if available in your Buck setup
-        # "//third-party/rust/crates/libc/0.2.169:libc",
+        "//third-party/rust/crates/libc/0.2.169:libc",
     ],
     env = {
         "CARGO_FEATURE_DEFAULT": "1",

@@ -1,11 +1,31 @@
 load("@prelude//rust:cargo_package.bzl", "cargo")
 
+# This file is created for cfg-if crate
+# Original author: Alex Crichton <alex@alexcrichton.com>
+# A macro to ergonomically define an item depending on a large number of #[cfg]
+# parameters. Structured like an if-else chain, the first matching branch is the
+# item that gets emitted.
+
 cargo.rust_library(
     name = "cfg-if",
     edition = "2021",
     srcs = glob(["src/**/*.rs"]),
     crate_root = "src/lib.rs",
-    features = ["default"],
     visibility = ["PUBLIC"],
+    features = ["default"],
     deps = [],
+)
+
+# Define additional targets for rustc-dep-of-std feature
+cargo.rust_library(
+    name = "cfg-if-rustc-dep",
+    edition = "2021",
+    srcs = glob(["src/**/*.rs"]),
+    crate_root = "src/lib.rs",
+    visibility = ["PUBLIC"],
+    features = ["rustc-dep-of-std"],
+    deps = [
+        "//third-party/rust/crates/compiler_builtins/0.1.2:compiler_builtins",
+        "//third-party/rust/crates/rustc-std-workspace-core/1.0.0:core",
+    ],
 )

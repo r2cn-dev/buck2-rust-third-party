@@ -1,0 +1,47 @@
+load("@prelude//rust:cargo_package.bzl", "cargo")
+
+# This BUCK file is for the serde_derive crate
+# It provides proc macro implementations of #[derive(Serialize, Deserialize)]
+cargo.rust_library(
+    name = "serde_derive",
+    edition = "2015",  # Using original edition to avoid syntax compatibility issues
+    srcs = glob(["src/**/*.rs", "crates-io.md"]),
+    crate_root = "src/lib.rs",
+    visibility = ["PUBLIC"],
+    features = ["default"],
+    deps = [
+        "//third-party/rust/crates/proc-macro2/1.0.74:proc-macro2",
+        "//third-party/rust/crates/quote/1.0.35:quote",
+        "//third-party/rust/crates/syn/2.0.81:syn",
+    ],
+    proc_macro = True,
+    rustc_flags = [
+        # Allow bare trait objects (no 'dyn' keyword)
+        "-A", "bare_trait_objects",
+        # Allow other deprecated syntax
+        "-A", "deprecated",
+        # Allow absolute paths in macro
+        "-A", "absolute_paths_not_starting_with_crate",
+    ],
+)
+
+# Version with deserialize_in_place feature
+cargo.rust_library(
+    name = "serde_derive-deserialize_in_place",
+    edition = "2015",  # Using original edition to avoid syntax compatibility issues
+    srcs = glob(["src/**/*.rs", "crates-io.md"]),
+    crate_root = "src/lib.rs",
+    visibility = ["PUBLIC"],
+    features = ["deserialize_in_place"],
+    deps = [
+        "//third-party/rust/crates/proc-macro2/1.0.74:proc-macro2",
+        "//third-party/rust/crates/quote/1.0.35:quote",
+        "//third-party/rust/crates/syn/2.0.81:syn",
+    ],
+    proc_macro = True,
+    rustc_flags = [
+        "-A", "bare_trait_objects",
+        "-A", "deprecated",
+        "-A", "absolute_paths_not_starting_with_crate",
+    ],
+)

@@ -1,0 +1,94 @@
+load("@prelude//rust:cargo_package.bzl", "cargo")
+
+# This BUCK file is for the once_cell crate
+# It configures the build settings necessary for Buck2 compilation
+# The crate provides single assignment cells and lazy values
+cargo.rust_library(
+    name = "once_cell",
+    edition = "2021",
+    srcs = glob(["src/**/*.rs"]),
+    crate_root = "src/lib.rs",
+    visibility = ["PUBLIC"],
+    features = ["default"],
+    deps = [],
+)
+
+# Feature configuration targets
+cargo.rust_library(
+    name = "once_cell-alloc",
+    edition = "2021",
+    srcs = glob(["src/**/*.rs"]),
+    crate_root = "src/lib.rs",
+    visibility = ["PUBLIC"],
+    features = ["alloc"],
+    deps = [],
+)
+
+cargo.rust_library(
+    name = "once_cell-std",
+    edition = "2021",
+    srcs = glob(["src/**/*.rs"]),
+    crate_root = "src/lib.rs",
+    visibility = ["PUBLIC"],
+    features = ["std"],
+    deps = [],
+)
+
+cargo.rust_library(
+    name = "once_cell-unstable",
+    edition = "2021",
+    srcs = glob(["src/**/*.rs"]),
+    crate_root = "src/lib.rs",
+    visibility = ["PUBLIC"],
+    features = ["unstable"],
+    deps = [],
+)
+
+cargo.rust_library(
+    name = "once_cell-parking_lot",
+    edition = "2021",
+    srcs = glob(["src/**/*.rs"]),
+    crate_root = "src/lib.rs",
+    visibility = ["PUBLIC"],
+    features = ["parking_lot"],
+    deps = [
+        "//third-party/rust/crates/parking_lot_core/0.9.10:parking_lot_core",
+    ],
+)
+
+cargo.rust_library(
+    name = "once_cell-critical-section",
+    edition = "2021",
+    srcs = glob(["src/**/*.rs"]),
+    crate_root = "src/lib.rs",
+    visibility = ["PUBLIC"],
+    features = ["critical-section"],
+    deps = [
+        "//third-party/rust/crates/critical-section/1.1.3:critical-section",
+        "//third-party/rust/crates/portable-atomic/1.8.0:portable-atomic",
+    ],
+)
+
+cargo.rust_library(
+    name = "once_cell-atomic-polyfill",
+    edition = "2021",
+    srcs = glob(["src/**/*.rs"]),
+    crate_root = "src/lib.rs",
+    visibility = ["PUBLIC"],
+    features = ["atomic-polyfill"],
+    deps = [
+        "//third-party/rust/crates/critical-section/1.1.3:critical-section",
+    ],
+)
+
+cargo.rust_library(
+    name = "once_cell-portable-atomic",
+    edition = "2021",
+    srcs = glob(["src/**/*.rs"]),
+    crate_root = "src/lib.rs",
+    visibility = ["PUBLIC"],
+    features = ["portable-atomic"],
+    deps = [
+        "//third-party/rust/crates/portable-atomic/1.8:portable-atomic",
+    ],
+)
