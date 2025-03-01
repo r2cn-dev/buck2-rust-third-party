@@ -10,6 +10,7 @@ cargo.rust_binary(
         "//third-party/rust/crates/shlex/1.3.0:shlex",
         "//third-party/rust/crates/zstd-sys/2.0.13+zstd.1.5.6:zstd-sys",
         "//third-party/rust/crates/cfg-if/1.0.0:cfg-if",
+        "//third-party/rust/crates/foreign-types-shared/0.1.1:foreign-types-shared",
     ],
     visibility = ["PUBLIC"],
 )
