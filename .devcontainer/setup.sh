@@ -16,7 +16,8 @@ apt-get install -y \
   file \
   ca-certificates \
   zstd \
-  clang
+  clang \
+  lld
 
 ## Install rustup and common components
 curl https://sh.rustup.rs -sSf | sh -s -- -y
