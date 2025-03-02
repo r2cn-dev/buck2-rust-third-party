@@ -6,15 +6,13 @@ cargo.rust_binary(
     srcs = glob(["src/**/*.rs"]),
     crate_root = "src/main.rs",
     deps = [
-        # Shlex
-        "//third-party/rust/crates/shlex/1.3.0:shlex",
-        "//third-party/rust/crates/shlex/1.3.0:shlex-no-std",
-        # ---
-
         # zstd-sys
         "//third-party/rust/crates/zstd-sys/2.0.13+zstd.1.5.6:zstd-sys",
         "//third-party/rust/crates/zstd-sys/2.0.13+zstd.1.5.6:zstd-sys-experimental",
         # ---
+
+        # zstd-safe
+        "//third-party/rust/crates/zstd-safe/7.2.1:zstd-safe",
 
         # cfg-if
         "//third-party/rust/crates/cfg-if/1.0.0:cfg-if",
@@ -81,6 +79,11 @@ cargo.rust_binary(
 
         # portable-atomic
         # "//third-party/rust/crates/portable-atomic/1.8.0:portable-atomic",
+
+        # Shlex
+        "//third-party/rust/crates/shlex/1.3.0:shlex",
+        "//third-party/rust/crates/shlex/1.3.0:shlex-no-std",
+        # ---
     ],
     visibility = ["PUBLIC"],
 )

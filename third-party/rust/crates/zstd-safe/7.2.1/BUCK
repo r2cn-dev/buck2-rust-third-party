@@ -1,0 +1,54 @@
+"""Buck build file for zstd-safe crate.
+
+This file defines the build configuration for the zstd-safe Rust crate,
+including its features, dependencies, and build settings.
+"""
+
+load("@prelude//rust:cargo_package.bzl", "cargo")
+
+# Define available features
+FEATURES = {
+    "arrays": [],
+    "bindgen": ["//third-party/rust/crates/zstd-sys/2.0.13+zstd.1.5.6:zstd-sys[bindgen]"],
+    "debug": ["//third-party/rust/crates/zstd-sys/2.0.13+zstd.1.5.6:zstd-sys[debug]"],
+    "default": [
+        "legacy",
+        "arrays",
+        "zdict_builder",
+    ],
+    "experimental": ["//third-party/rust/crates/zstd-sys/2.0.13+zstd.1.5.6:zstd-sys[experimental]"],
+    "fat-lto": ["//third-party/rust/crates/zstd-sys/2.0.13+zstd.1.5.6:zstd-sys[fat-lto]"],
+    "legacy": ["//third-party/rust/crates/zstd-sys/2.0.13+zstd.1.5.6:zstd-sys[legacy]"],
+    "no_asm": ["//third-party/rust/crates/zstd-sys/2.0.13+zstd.1.5.6:zstd-sys[no_asm]"],
+    "pkg-config": ["//third-party/rust/crates/zstd-sys/2.0.13+zstd.1.5.6:zstd-sys[pkg-config]"],
+    "std": ["//third-party/rust/crates/zstd-sys/2.0.13+zstd.1.5.6:zstd-sys[std]"],
+    "thin": ["//third-party/rust/crates/zstd-sys/2.0.13+zstd.1.5.6:zstd-sys[thin]"],
+    "thin-lto": ["//third-party/rust/crates/zstd-sys/2.0.13+zstd.1.5.6:zstd-sys[thin-lto]"],
+    "zdict_builder": ["//third-party/rust/crates/zstd-sys/2.0.13+zstd.1.5.6:zstd-sys[zdict_builder]"],
+    "zstdmt": ["//third-party/rust/crates/zstd-sys/2.0.13+zstd.1.5.6:zstd-sys[zstdmt]"],
+}
+
+cargo.rust_binary(
+    name = "build-script",
+    edition = "2021",
+    srcs = ["build.rs"],
+    crate_root = "build.rs",
+    deps = [],
+    visibility = [":zstd-safe"],
+)
+
+cargo.rust_library(
+    name = "zstd-safe",
+    edition = "2021",
+    srcs = glob(["src/**/*.rs"]),
+    crate_root = "src/lib.rs",
+    features = FEATURES["default"] + ["std"],  # Always enable std feature to be safe
+    rustc_flags = [],
+    # Since we can't easily access target_arch and target_os in Buck2,
+    # we'll just enable the std feature by default to ensure compatibility
+    deps = [
+        "//third-party/rust/crates/zstd-sys/2.0.13+zstd.1.5.6:zstd-sys",
+        ":build-script",
+    ],
+    visibility = ["PUBLIC"],
+)
