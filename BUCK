@@ -8,7 +8,7 @@ cargo.rust_binary(
     deps = [
         # zstd-sys
         "//third-party/rust/crates/zstd-sys/2.0.13+zstd.1.5.6:zstd-sys",
-        "//third-party/rust/crates/zstd-sys/2.0.13+zstd.1.5.6:zstd-sys-experimental",
+        "//third-party/rust/crates/zstd-sys/2.0.14+zstd.1.5.7:zstd-sys",
         # ---
 
         # zstd-safe

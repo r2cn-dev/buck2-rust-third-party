@@ -88,23 +88,26 @@ For now, I am trying to generate `BUCK` with `Cargo.toml` with Claude, and the p
 * BUCK 文件中没有 `version` 和 `licenses` 字段；
 * BUCK 文件中 `edition` 字段固定使用 `2021`；
 * 如果有依赖存在，请使用 `//third-party/rust/crates/<crate_name>/<crate_version>:<crate_name>` 来替换；
-* 如果有 Feature, 使用如下的方式来设计：
+* 如果有 Feature, 采用通过 `--config` 传入构建参数，加入以下函数设计：
 ```
-FEATURES = {
-    "debug": [],
-    "default": ["legacy", "zdict_builder"],
-}
+def get_rust_features():
+    features_config = read_config("rust", "features", "")
+    
+    if features_config == "":
+        return []
+    return [f.strip() for f in features_config.split(",") if f.strip()]
 ```
 * 请在基础模板下进行修改：
 ```
-load("@prelude//rust:cargo_package.bzl", "cargo")
+load("@prelude//toolchains:rust.bzl", "system_rust_toolchain")
+load("@prelude//toolchains:cxx.bzl", "system_cxx_toolchain")
 
-cargo.rust_library(
+rust_library(
     name = "",
     edition = "2021",
     srcs = glob(["src/**/*.rs"]),
     crate_root = "src/lib.rs",
-    features = FEATURES["default"],
+    features = get_rust_features(),
     rustc_flags = [],
     env = {},
     deps = [],
