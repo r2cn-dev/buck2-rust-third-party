@@ -8,14 +8,13 @@ load("//third-party/rust/crates/zstd-sys/2.0.14+zstd.1.5.7:build.bzl", "get_rust
 cxx_library(
     name = "zstd_c",
     srcs = glob([
-        "zstd/lib/common/**/*.c",
-        "zstd/lib/compress/**/*.c",
-        "zstd/lib/decompress/**/*.c",
-        "zstd/lib/dictBuilder/**/*.c",
-        "zstd/lib/legacy/**/*.c",
-        "zstd/contrib/seekable_format/**/*.c",
-        "zstd/lib/decompress/huf_decompress_amd64.S",
-    ]),
+        "zstd/lib/common/*.c",
+        "zstd/lib/compress/*.c",
+        "zstd/lib/decompress/*.c",
+    ]) + select({
+        "DEFAULT": ["zstd/lib/decompress/huf_decompress_amd64.S"],
+        "ovr_config//os:windows": [],
+    }),
     headers = glob([
         "zstd/lib/**/*.h",
         "wasm-shim/**/*.h",
