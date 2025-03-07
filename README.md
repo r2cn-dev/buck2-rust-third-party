@@ -1,18 +1,18 @@
 ## BUCK files of Crate
 
-### Purpose
+### Milestone
 
 1. openssl-sys - 0.9.106
-2. rustc-std-workspace-core - 1.0.1
+2. rustyvault - 0.2.2
+
 
 ### Building All
 
-`buck2 build //:buck2-rust-third-party`
+`buck2 build //:rust-third-party`
 
-### Buck2 TODO
+### TODO
 
-- [ ] Check OS/Architecture and other build parameters
-- [ ] How to run tests with Buck2
+
 
 ### Bug List
 
