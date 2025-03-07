@@ -1,11 +1,14 @@
 load("@prelude//rust:cargo_package.bzl", "cargo")
 
 cargo.rust_binary(
-    name = "buck2-rust-third-party",
+    name = "rust-third-party",
     edition = "2021",
     srcs = glob(["src/**/*.rs"]),
     crate_root = "src/main.rs",
     deps = [
+        # rustc-std-workspace-core
+        "//third-party/rust/crates/rustc-std-workspace-core/1.0.1:rustc-std-workspace-core",
+
         # zstd-sys
         "//third-party/rust/crates/zstd-sys/2.0.13+zstd.1.5.6:zstd-sys",
         "//third-party/rust/crates/zstd-sys/2.0.14+zstd.1.5.7:zstd-sys",

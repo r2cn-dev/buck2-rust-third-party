@@ -1,7 +1,7 @@
 load("@prelude//toolchains:rust.bzl", "system_rust_toolchain")
 load("@prelude//toolchains:cxx.bzl", "system_cxx_toolchain")
 
-load("//third-party/rust/crates/zstd-sys/2.0.14+zstd.1.5.7:build.bzl", "get_rust_features")
+load("//:build.bzl", "get_rust_features")
 
 
 # C library for zstd
