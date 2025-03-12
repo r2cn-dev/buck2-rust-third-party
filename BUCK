@@ -9,6 +9,14 @@ cargo.rust_binary(
         # rustc-std-workspace-core
         "//third-party/rust/crates/rustc-std-workspace-core/1.0.1:rustc-std-workspace-core",
 
+        # lexopt
+        "//third-party/rust/crates/lexopt/0.3.0:lexopt",
+
+        # anstyle
+        # Example: `buck2 run //third-party/rust/crates/anstyle/1.0.10:dump-style`
+        "//third-party/rust/crates/anstyle/1.0.10:anstyle",
+        "//third-party/rust/crates/anstyle/1.0.10:dump-style",
+
         # zstd-sys
         "//third-party/rust/crates/zstd-sys/2.0.13+zstd.1.5.6:zstd-sys",
         "//third-party/rust/crates/zstd-sys/2.0.14+zstd.1.5.7:zstd-sys",
