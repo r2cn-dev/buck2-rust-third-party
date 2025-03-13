@@ -84,7 +84,7 @@ For now, I am trying to generate `BUCK` with `Cargo.toml` with Claude, and the p
 
 * BUCK 文件中的注释使用英文；
 * 交互过程使用中文；
-* 使用 `load("@prelude//rust:cargo_package.bzl", "cargo")`;
+* 使用 `load("@prelude//toolchains:rust.bzl", "system_rust_toolchain")`;
 * BUCK 文件中没有 `version` 和 `licenses` 字段；
 * BUCK 文件中 `edition` 字段固定使用 `2021`；
 * 如果有依赖存在，请使用 `//third-party/rust/crates/<crate_name>/<crate_version>:<crate_name>` 来替换；
@@ -100,7 +100,6 @@ def get_rust_features():
 * 请在基础模板下进行修改：
 ```
 load("@prelude//toolchains:rust.bzl", "system_rust_toolchain")
-load("@prelude//toolchains:cxx.bzl", "system_cxx_toolchain")
 
 rust_library(
     name = "",

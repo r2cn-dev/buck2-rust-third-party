@@ -1,0 +1,28 @@
+load("@prelude//toolchains:rust.bzl", "system_rust_toolchain")
+load("//build.bzl", "get_rust_features")
+
+rust_library(
+    name = "anstyle",
+    edition = "2021",
+    srcs = glob(["src/**/*.rs"]),
+    crate_root = "src/lib.rs",
+    features = get_rust_features(),
+    rustc_flags = [],
+    env = {},
+    deps = [],
+    visibility = ["PUBLIC"],
+)
+
+# Example binary
+rust_binary(
+    name = "dump-style",
+    edition = "2021",
+    srcs = ["examples/dump-style.rs"],
+    crate_root = "examples/dump-style.rs",
+    features = get_rust_features(),
+    deps = [
+        ":anstyle",
+        "//third-party/rust/crates/lexopt/0.3.0:lexopt",
+    ],
+    visibility = ["PUBLIC"],
+)
