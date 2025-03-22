@@ -1,0 +1,14 @@
+load("@prelude//toolchains:rust.bzl", "system_rust_toolchain")
+
+rust_library(
+    name = "fnv",
+    crate = "fnv",
+    edition = "2021",
+    srcs = glob(["lib.rs"]),
+    crate_root = "lib.rs",
+    features = ["std"],
+    rustc_flags = [],
+    env = {},
+    deps = [],
+    visibility = ["PUBLIC"],
+)

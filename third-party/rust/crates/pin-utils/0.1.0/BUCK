@@ -1,0 +1,14 @@
+load("@prelude//toolchains:rust.bzl", "system_rust_toolchain")
+
+rust_library(
+    name = "pin-utils",
+    crate = "pin-utils",
+    edition = "2021",
+    srcs = glob(["src/**/*.rs"]),
+    crate_root = "src/lib.rs",
+    features = [""],
+    rustc_flags = [],
+    env = {},
+    deps = [],
+    visibility = ["PUBLIC"],
+)

@@ -1,0 +1,14 @@
+load("@prelude//toolchains:rust.bzl", "system_rust_toolchain")
+
+rust_library(
+    name = "try-lock",
+    crate = "try-lock",
+    edition = "2024",
+    srcs = glob(["src/**/*.rs"]),
+    crate_root = "src/lib.rs",
+    features = [],
+    rustc_flags = [],
+    env = {},
+    deps = [],
+    visibility = ["PUBLIC"],
+)
