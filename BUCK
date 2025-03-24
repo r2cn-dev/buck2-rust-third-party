@@ -6,11 +6,23 @@ cargo.rust_binary(
     srcs = glob(["src/**/*.rs"]),
     crate_root = "src/main.rs",
     deps = [
+        # autocfg
+        "//third-party/rust/crates/autocfg/1.4.0:autocfg",
+
+        # equivalent
+        "//third-party/rust/crates/equivalent/1.0.2:equivalent",
+
+        # fny
+        "//third-party/rust/crates/fnv/1.0.7:fnv",
+
         # rustc-std-workspace-core
         "//third-party/rust/crates/rustc-std-workspace-core/1.0.1:rustc-std-workspace-core",
 
         # lexopt
         "//third-party/rust/crates/lexopt/0.3.0:lexopt",
+
+        # opaque-debug
+        "//third-party/rust/crates/opaque-debug/0.3.1:opaque-debug",
 
         # anstyle
         # Example: `buck2 run //third-party/rust/crates/anstyle/1.0.10:dump-style`
@@ -29,9 +41,39 @@ cargo.rust_binary(
         "//third-party/rust/crates/cfg-if/1.0.0:cfg-if",
         # ---
 
+        # time-core
+        "//third-party/rust/crates/time-core/0.1.4:time-core",
+
         # libc
         "//third-party/rust/crates/libc/0.2.169:libc",
         # ---
+
+        # tinyvec_macros
+        "//third-party/rust/crates/tinyvec_macros/0.1.1:tinyvec_macros",
+
+        # try-lock
+        "//third-party/rust/crates/try-lock/0.2.5:try-lock",
+
+        # untrusted
+        "//third-party/rust/crates/untrusted/0.9.0:untrusted",
+
+        # utf8parse
+        "//third-party/rust/crates/utf8parse/0.2.2:utf8parse",
+
+        # openssl-probe
+        "//third-party/rust/crates/openssl-probe/0.1.6:openssl-probe",
+
+        # pin-utils
+        "//third-party/rust/crates/pin-utils/0.1.0:pin-utils",
+
+        # quick-error
+        "//third-party/rust/crates/quick-error/2.0.1:quick-error",
+
+        # scopeguard
+        "//third-party/rust/crates/scopeguard/1.2.0:scopeguard",
+
+        # static_assertions
+        "//third-party/rust/crates/static_assertions/1.1.0:static_assertions",
 
         # syn
         # "//third-party/rust/crates/syn/2.0.81",
@@ -51,6 +93,7 @@ cargo.rust_binary(
 
         # foreign-types-shared/
         "//third-party/rust/crates/foreign-types-shared/0.1.1:foreign-types-shared",
+        "//third-party/rust/crates/foreign-types-shared/0.3.1:foreign-types-shared",
         # ---
 
         # once_cell
@@ -95,6 +138,9 @@ cargo.rust_binary(
         "//third-party/rust/crates/shlex/1.3.0:shlex",
         "//third-party/rust/crates/shlex/1.3.0:shlex-no-std",
         # ---
+
+        # version_check
+        "//third-party/rust/crates/version_check/0.9.5:version_check",
     ],
     visibility = ["PUBLIC"],
 )
