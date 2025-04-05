@@ -7,6 +7,7 @@ cargo.rust_binary(
     crate_root = "src/main.rs",
     deps = [
         # ---
+        "//third-party/rust/crates/deno-x86_64-pc-windows-msvc/0.23.0:deno-x86_64-pc-windows-msvc",
         "//third-party/rust/crates/windows_x86_64_msvc/0.53.0:windows_x86_64_msvc",
         "//third-party/rust/crates/windows_x86_64_gnullvm/0.53.0:windows_x86_64_gnullvm",
         "//third-party/rust/crates/windows_x86_64_gnu/0.53.0:windows_x86_64_gnu",
