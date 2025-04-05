@@ -95,15 +95,15 @@ cargo.rust_binary(
         "//third-party/rust/crates/static_assertions/1.1.0:static_assertions",
 
         # syn
-        # "//third-party/rust/crates/syn/2.0.81",
+        # "//third-party/rust/crates/syn/2.0.81:syn",
         # ---
 
         # Serde
-        # "//third-party/rust/crates/serde/1.0.60:serde",
+        #"//third-party/rust/crates/serde/1.0.60:serde",
         # ---
 
         # Serde_derive
-        # "//third-party/rust/crates/serde_derive/1.0.218:serde_derive",
+        #"//third-party/rust/crates/serde_derive/1.0.218:serde_derive",
         # ---
 
         # foreign-types

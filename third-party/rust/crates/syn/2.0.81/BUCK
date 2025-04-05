@@ -1,18 +1,16 @@
-load("@prelude//rust:cargo_package.bzl", "cargo")
+load("@prelude//toolchains:rust.bzl", "system_rust_toolchain")
+load("//third-party/rust/crates/syn/2.0.81:build.bzl", "get_rust_features", "get_conditional_deps")
 
-# This BUCK file is generated based on Cargo.toml
-# Parser for Rust source code
 
-cargo.rust_library(
+# syn library implementation
+rust_library(
     name = "syn",
-    edition = "2021",
+    edition = "2021",  # Using edition from Cargo.toml
     srcs = glob(["src/**/*.rs"]),
     crate_root = "src/lib.rs",
+    features = get_rust_features(),
+    rustc_flags = [],
+    env = {},
+    deps = get_conditional_deps(),
     visibility = ["PUBLIC"],
-    features = ["default"],
-    deps = [
-        "//third-party/rust/crates/proc-macro2/1.0.83:proc-macro2",
-        "//third-party/rust/crates/quote/1.0.35:quote",
-        "//third-party/rust/crates/unicode-ident/1.0.17:unicode-ident",
-    ]
 )

@@ -12,20 +12,22 @@ rust_library(
     env = {},
     deps = [
         # Conditional configuration for proc-macro2 with features based on our features
-        "//third-party/rust/crates/proc-macro2/1.0.74:proc-macro2",
+        "//third-party/rust/crates/proc-macro2/1.0.83:proc-macro2",
     ],
     visibility = ["PUBLIC"],
 )
 
-# Test target for quote
-rust_test(
-    name = "quote_test",
-    srcs = glob(["tests/**/*.rs"]),  # Include all test files
-    crate = ":quote",
+rust_library(
+    name = "quote-proc-macro",
+    edition = "2018",  # Using edition from Cargo.toml
+    srcs = glob(["src/**/*.rs"]),
+    crate_root = "src/lib.rs",
+    features = get_rust_features("proc-macro"),
+    rustc_flags = [],
+    env = {},
     deps = [
-        "//third-party/rust/crates/proc-macro2/1.0.74:proc-macro2",
-        "//third-party/rust/crates/rustversion/1.0:rustversion",
-        "//third-party/rust/crates/trybuild/1.0.66:trybuild",
+        # Conditional configuration for proc-macro2 with features based on our features
+        "//third-party/rust/crates/proc-macro2/1.0.83:proc-macro2",
     ],
-    features = get_rust_features(),
+    visibility = ["PUBLIC"],
 )
