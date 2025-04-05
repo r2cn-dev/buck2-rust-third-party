@@ -17,6 +17,7 @@ cargo.rust_binary(
         "//third-party/rust/crates/windows_aarch64_msvc/0.53.0:windows_aarch64_msvc",
         "//third-party/rust/crates/windows_aarch64_gnullvm/0.53.0:windows_aarch64_gnullvm",
         "//third-party/rust/crates/winapi-i686-pc-windows-gnu/0.4.0:winapi-i686-pc-windows-gnu",
+        "//third-party/rust/crates/winapi-x86_64-pc-windows-gnu/0.4.0:winapi-x86_64-pc-windows-gnu",
         # ---
 
         # autocfg
