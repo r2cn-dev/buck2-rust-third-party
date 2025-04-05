@@ -21,6 +21,10 @@ cargo.rust_binary(
         "//third-party/rust/crates/winapi/0.3.9:winapi", # --config rust.features=everything,impl-debug,impl-default --config rust.target=i686-pc-windows-gnu
         # ---
 
+        # rand_core
+        "//third-party/rust/crates/rand_core/0.3.1:rand_core",
+        "//third-party/rust/crates/rand_core/0.4.0:rand_core",
+
         # autocfg
         "//third-party/rust/crates/autocfg/1.4.0:autocfg",
 

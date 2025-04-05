@@ -1,0 +1,17 @@
+load("@prelude//toolchains:rust.bzl", "system_rust_toolchain")
+load("//third-party/rust/crates/rand_core/0.3.1:build.bzl", "get_rust_features")
+
+# This rust_library implements rand_core 0.3.1
+rust_library(
+    name = "rand_core",
+    edition = "2018",  # Using 2018 as this is likely for rand_core 0.3.1
+    srcs = glob(["src/**/*.rs"]),
+    crate_root = "src/lib.rs",
+    features = get_rust_features(),
+    rustc_flags = [],
+    env = {},
+    deps = [
+        "//third-party/rust/crates/rand_core/0.4.0:rand_core",
+    ],
+    visibility = ["PUBLIC"],
+)

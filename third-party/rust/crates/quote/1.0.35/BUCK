@@ -1,0 +1,31 @@
+load("@prelude//toolchains:rust.bzl", "system_rust_toolchain")
+load("//third-party/rust/crates/quote/1.0.35:build.bzl", "get_rust_features")
+
+# Quote library implementation - Rust quasi-quoting syntax extension
+rust_library(
+    name = "quote",
+    edition = "2018",  # Using edition from Cargo.toml
+    srcs = glob(["src/**/*.rs"]),
+    crate_root = "src/lib.rs",
+    features = get_rust_features(),
+    rustc_flags = [],
+    env = {},
+    deps = [
+        # Conditional configuration for proc-macro2 with features based on our features
+        "//third-party/rust/crates/proc-macro2/1.0.74:proc-macro2",
+    ],
+    visibility = ["PUBLIC"],
+)
+
+# Test target for quote
+rust_test(
+    name = "quote_test",
+    srcs = glob(["tests/**/*.rs"]),  # Include all test files
+    crate = ":quote",
+    deps = [
+        "//third-party/rust/crates/proc-macro2/1.0.74:proc-macro2",
+        "//third-party/rust/crates/rustversion/1.0:rustversion",
+        "//third-party/rust/crates/trybuild/1.0.66:trybuild",
+    ],
+    features = get_rust_features(),
+)
