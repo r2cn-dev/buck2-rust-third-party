@@ -80,13 +80,13 @@ rm -rf .devcontainer
 For now, I am trying to generate `BUCK` with `Cargo.toml` with Claude, and the promote words in Chinese:
 
 
-编写附件 Cargo.toml 对应功能的 BUCK 文件，满足 Buck2 编译的需求，要求包括：
+编写附件 Cargo.toml 和 build.rs 对应功能的 BUCK 文件，满足 Buck2 编译的需求，要求包括：
 
 * BUCK 文件中的注释使用英文；
 * 交互过程使用中文；
 * 使用 `load("@prelude//toolchains:rust.bzl", "system_rust_toolchain")`;
 * BUCK 文件中没有 `version` 和 `licenses` 字段；
-* BUCK 文件中 `edition` 字段固定使用 `2021`；
+* BUCK 文件中 `edition` 字段固定使用 Cargo.toml 中的 `edition` ；
 * 如果有依赖存在，请使用 `//third-party/rust/crates/<crate_name>/<crate_version>:<crate_name>` 来替换；
 * 如果有 Feature, 采用通过 `--config` 传入构建参数，加入以下函数设计：
 ```

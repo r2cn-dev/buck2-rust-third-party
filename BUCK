@@ -6,6 +6,18 @@ cargo.rust_binary(
     srcs = glob(["src/**/*.rs"]),
     crate_root = "src/main.rs",
     deps = [
+        # ---
+        "//third-party/rust/crates/windows_x86_64_msvc/0.53.0:windows_x86_64_msvc",
+        "//third-party/rust/crates/windows_x86_64_gnullvm/0.53.0:windows_x86_64_gnullvm",
+        "//third-party/rust/crates/windows_x86_64_gnu/0.53.0:windows_x86_64_gnu",
+        "//third-party/rust/crates/windows_i686_msvc/0.53.0:windows_i686_msvc",
+        "//third-party/rust/crates/windows_i686_gnullvm/0.53.0:windows_i686_gnullvm",
+        "//third-party/rust/crates/windows_i686_gnu/0.53.0:windows_i686_gnu",
+        "//third-party/rust/crates/windows_aarch64_msvc/0.53.0:windows_aarch64_msvc",
+        "//third-party/rust/crates/windows_aarch64_gnullvm/0.53.0:windows_aarch64_gnullvm",
+        "//third-party/rust/crates/winapi-i686-pc-windows-gnu/0.4.0:winapi-i686-pc-windows-gnu",
+        # ---
+
         # autocfg
         "//third-party/rust/crates/autocfg/1.4.0:autocfg",
 

@@ -1,0 +1,10 @@
+
+[package]
+name = "deno-x86_64-pc-windows-msvc"
+description = "Binary dependencies for the 'deno' crate"
+authors = ["The deno authors <bertbelder@nodejs.org>"]
+version = "0.23.0"
+build = "build.rs"
+include = ["src/*", "lib/*", "Cargo.toml", "build.rs"]
+license = "MIT"
+repository = "https://github.com/denoland/deno"
