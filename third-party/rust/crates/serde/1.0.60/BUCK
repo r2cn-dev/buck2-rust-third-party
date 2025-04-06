@@ -1,55 +1,18 @@
-load("@prelude//rust:cargo_package.bzl", "cargo")
+load("@prelude//toolchains:rust.bzl", "system_rust_toolchain")
+load("//third-party/rust/crates/serde/1.0.60:build.bzl", "get_rustc_flags", "get_rust_features", "get_conditional_deps")
 
 # This BUCK file is for the serde_derive crate
 # It provides proc macro implementations of #[derive(Serialize, Deserialize)]
-cargo.rust_library(
-    name = "serde_derive",
-    edition = "2015",  # Using original edition to avoid syntax compatibility issues
-    srcs = glob(["src/**/*.rs", "crates-io.md"]),
+# Serde library implementation
+rust_library(
+    name = "serde",
+    # Note: Cargo.toml does not specify an edition, so we use 2015 (the default for older crates)
+    edition = "2015",
+    srcs = glob(["src/**/*.rs"]),
     crate_root = "src/lib.rs",
+    features = get_rust_features(),
+    rustc_flags = get_rustc_flags(),
+    env = {},
+    deps = get_conditional_deps(),
     visibility = ["PUBLIC"],
-    features = ["default"],
-    deps = [
-        "//third-party/rust/crates/proc-macro2/1.0.74:proc-macro2",
-        "//third-party/rust/crates/quote/1.0.35:quote",
-        "//third-party/rust/crates/syn/2.0.81:syn",
-    ],
-    proc_macro = True,
-    rustc_flags = [
-        # Allow bare trait objects (no 'dyn' keyword)
-        "-A", "bare_trait_objects",
-        # Allow other deprecated syntax
-        "-A", "deprecated",
-        # Allow absolute paths in macro
-        "-A", "absolute_paths_not_starting_with_crate",
-        # Allow using old-style trait bounds
-        "-A", "improper_ctypes_definitions",
-        # These help with using newer dependencies with older code
-        "--allow-features=impl_trait_in_bindings",
-        "--allow-features=proc_macro_span",
-    ],
-)
-
-# Version with deserialize_in_place feature
-cargo.rust_library(
-    name = "serde_derive-deserialize_in_place",
-    edition = "2015",  # Using original edition to avoid syntax compatibility issues
-    srcs = glob(["src/**/*.rs", "crates-io.md"]),
-    crate_root = "src/lib.rs",
-    visibility = ["PUBLIC"],
-    features = ["deserialize_in_place"],
-    deps = [
-        "//third-party/rust/crates/proc-macro2/1.0.74:proc-macro2",
-        "//third-party/rust/crates/quote/1.0.35:quote",
-        "//third-party/rust/crates/syn/2.0.81:syn",
-    ],
-    proc_macro = True,
-    rustc_flags = [
-        "-A", "bare_trait_objects",
-        "-A", "deprecated",
-        "-A", "absolute_paths_not_starting_with_crate",
-        "-A", "improper_ctypes_definitions",
-        "--allow-features=impl_trait_in_bindings",
-        "--allow-features=proc_macro_span",
-    ],
 )

@@ -1,0 +1,23 @@
+load("@prelude//toolchains:rust.bzl", "system_rust_toolchain")
+load("//third-party/rust/crates/winapi-i686-pc-windows-gnu/0.4.0:build.bzl", "get_rustc_flags")
+
+# This rust_library is for winapi-i686-pc-windows-gnu import libraries
+# It implements the functionality from the original Cargo.toml and build.rs
+rust_library(
+    name = "winapi-i686-pc-windows-gnu",
+    # Using fixed edition as per requirements
+    # Note: original Cargo.toml doesn't specify edition, defaulting to 2015
+    edition = "2021",
+    srcs = glob(["src/**/*.rs"]),
+    crate_root = "src/lib.rs",
+    features = [],
+    # Conditionally add rustc flags based on target triple
+    rustc_flags = get_rustc_flags(),
+    # Add environment variable to control library bundling
+    env = {
+        # This can be overridden at build time
+        "WINAPI_NO_BUNDLED_LIBRARIES": read_config("winapi", "no_bundled_libraries", ""),
+    },
+    deps = [],
+    visibility = ["PUBLIC"],
+)

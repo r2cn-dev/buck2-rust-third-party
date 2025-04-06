@@ -6,6 +6,25 @@ cargo.rust_binary(
     srcs = glob(["src/**/*.rs"]),
     crate_root = "src/main.rs",
     deps = [
+        # ---
+        "//third-party/rust/crates/deno-x86_64-pc-windows-msvc/0.23.0:deno-x86_64-pc-windows-msvc",
+        "//third-party/rust/crates/windows_x86_64_msvc/0.53.0:windows_x86_64_msvc",
+        "//third-party/rust/crates/windows_x86_64_gnullvm/0.53.0:windows_x86_64_gnullvm",
+        "//third-party/rust/crates/windows_x86_64_gnu/0.53.0:windows_x86_64_gnu",
+        "//third-party/rust/crates/windows_i686_msvc/0.53.0:windows_i686_msvc",
+        "//third-party/rust/crates/windows_i686_gnullvm/0.53.0:windows_i686_gnullvm",
+        "//third-party/rust/crates/windows_i686_gnu/0.53.0:windows_i686_gnu",
+        "//third-party/rust/crates/windows_aarch64_msvc/0.53.0:windows_aarch64_msvc",
+        "//third-party/rust/crates/windows_aarch64_gnullvm/0.53.0:windows_aarch64_gnullvm",
+        "//third-party/rust/crates/winapi-i686-pc-windows-gnu/0.4.0:winapi-i686-pc-windows-gnu",
+        "//third-party/rust/crates/winapi-x86_64-pc-windows-gnu/0.4.0:winapi-x86_64-pc-windows-gnu",
+        "//third-party/rust/crates/winapi/0.3.9:winapi", # --config rust.features=everything,impl-debug,impl-default --config rust.target=i686-pc-windows-gnu
+        # ---
+
+        # rand_core
+        "//third-party/rust/crates/rand_core/0.3.1:rand_core",
+        "//third-party/rust/crates/rand_core/0.4.0:rand_core",
+
         # autocfg
         "//third-party/rust/crates/autocfg/1.4.0:autocfg",
 
@@ -76,15 +95,15 @@ cargo.rust_binary(
         "//third-party/rust/crates/static_assertions/1.1.0:static_assertions",
 
         # syn
-        # "//third-party/rust/crates/syn/2.0.81",
+        # "//third-party/rust/crates/syn/2.0.81:syn",
         # ---
 
         # Serde
-        # "//third-party/rust/crates/serde/1.0.60:serde",
+        #"//third-party/rust/crates/serde/1.0.60:serde",
         # ---
 
         # Serde_derive
-        # "//third-party/rust/crates/serde_derive/1.0.218:serde_derive",
+        #"//third-party/rust/crates/serde_derive/1.0.218:serde_derive",
         # ---
 
         # foreign-types

@@ -1,0 +1,20 @@
+load("@prelude//toolchains:rust.bzl", "system_rust_toolchain")
+
+# This rust_library is for the Windows import lib
+# It mimics the functionality from the original Cargo.toml and build.rs
+rust_library(
+    name = "windows_i686_gnullvm",
+    edition = "2021",
+    srcs = glob(["src/**/*.rs"]),
+    crate_root = "src/lib.rs",
+    features = [],
+    env = {},
+    # Adding linker search path from build.rs
+    link_style = "static",
+    # Adding the lib directory to the linker search path
+    rustc_flags = [
+        "-L",
+        "native=lib",
+    ],
+    visibility = ["PUBLIC"],
+)

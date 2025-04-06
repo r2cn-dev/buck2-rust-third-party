@@ -1,0 +1,19 @@
+load("@prelude//toolchains:rust.bzl", "system_rust_toolchain")
+load("//third-party/rust/crates/deno-x86_64-pc-windows-msvc/0.23.0:build.bzl", "get_rustc_flags")
+
+# This rust_library is for deno-x86_64-pc-windows-msvc binaries
+# It implements the functionality from the original Cargo.toml and build.rs
+rust_library(
+    name = "deno-x86_64-pc-windows-msvc",
+    # Using fixed edition as per requirements
+    # Note: original Cargo.toml doesn't specify edition, defaulting to 2015
+    edition = "2021",
+    srcs = glob(["src/**/*.rs"]),
+    crate_root = "src/lib.rs",
+    features = [],
+    # Conditionally add rustc flags based on target triple
+    rustc_flags = get_rustc_flags(),
+    env = {},
+    deps = [],
+    visibility = ["PUBLIC"],
+)

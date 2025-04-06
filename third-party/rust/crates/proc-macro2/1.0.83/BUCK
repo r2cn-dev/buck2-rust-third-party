@@ -1,0 +1,33 @@
+load("@prelude//toolchains:rust.bzl", "system_rust_toolchain")
+load("//third-party/rust/crates/proc-macro2/1.0.83:build.bzl", "get_rust_features", "get_rustc_flags", "get_env")
+
+
+# proc_macro2 library implementation
+rust_library(
+    name = "proc-macro2",
+    edition = "2021",  # Using edition from Cargo.toml
+    srcs = glob(["src/**/*.rs"]) + ["build/probe.rs"],  # Include probe.rs that build.rs uses
+    crate_root = "src/lib.rs",
+    features = get_rust_features(),
+    rustc_flags = get_rustc_flags(),
+    env = get_env(),
+    deps = [
+        "//third-party/rust/crates/unicode-ident/1.0.17:unicode-ident",
+    ],
+    visibility = ["PUBLIC"],
+)
+
+# proc_macro2 library with proc-macro feature enabled
+rust_library(
+    name = "proc-macro2-proc-macro",
+    edition = "2021",  # Using edition from Cargo.toml
+    srcs = glob(["src/**/*.rs"]) + ["build/probe.rs"],  # Include probe.rs that build.rs uses
+    crate_root = "src/lib.rs",
+    features = get_rust_features("proc-macro"),
+    rustc_flags = get_rustc_flags(),
+    env = get_env(),
+    deps = [
+        "//third-party/rust/crates/unicode-ident/1.0.17:unicode-ident",
+    ],
+    visibility = ["PUBLIC"],
+)

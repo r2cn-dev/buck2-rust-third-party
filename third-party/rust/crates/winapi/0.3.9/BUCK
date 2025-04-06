@@ -1,0 +1,14 @@
+load("@prelude//toolchains:rust.bzl", "system_rust_toolchain")
+load("//third-party/rust/crates/winapi/0.3.9:build.bzl", "get_rust_features", "get_target_deps", "get_winapi_env")
+
+rust_library(
+    name = "winapi",
+    edition = "2015",
+    srcs = glob(["src/**/*.rs"]),
+    crate_root = "src/lib.rs",
+    features = get_rust_features(),
+    rustc_flags = [],
+    env = get_winapi_env(),
+    deps = get_target_deps(),
+    visibility = ["PUBLIC"],
+)

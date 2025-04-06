@@ -1,5 +1,5 @@
 load("@prelude//toolchains:rust.bzl", "system_rust_toolchain")
-load("//build.bzl", "get_rust_features")
+load("//third-party/rust/crates/anstyle/1.0.10:build.bzl", "get_rust_features")
 
 rust_library(
     name = "anstyle",
