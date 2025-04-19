@@ -1,0 +1,17 @@
+load("@prelude//rust:cargo_package.bzl", "cargo")
+load("//third-party/rust/crates/cc/1.2.16:build.bzl", "get_rust_features")
+
+cargo.rust_library(
+    name = "cc",
+    crate = "cc",
+    edition = "2018",
+    crate_root = "src/lib.rs",
+    srcs = glob(["src/**/*.rs"]),
+    features = get_rust_features(),
+    deps = [
+        "//third-party/rust/crates/shlex:1.3.0",
+        "//third-party/rust/crates/jobserver:0.1.32",
+        "//third-party/rust/crates/libc:0.2.169",
+    ],
+    visibility = ["PUBLIC"],
+)

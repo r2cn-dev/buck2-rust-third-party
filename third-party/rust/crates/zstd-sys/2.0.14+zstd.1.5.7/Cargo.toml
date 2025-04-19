@@ -10,9 +10,9 @@
 # See Cargo.toml.orig for the original contents.
 
 [package]
+name = "zstd-sys"
 edition = "2018"
 rust-version = "1.64"
-name = "zstd-sys"
 version = "2.0.14+zstd.1.5.7"
 authors = ["Alexandre Bury <alexandre.bury@gmail.com>"]
 build = "build.rs"

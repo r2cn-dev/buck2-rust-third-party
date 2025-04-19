@@ -9,6 +9,7 @@ rust_library(
     features = [],
     rustc_flags = [],
     env = {},
-    deps = [],
+    deps = [
+    ],
     visibility = ["PUBLIC"],
 )

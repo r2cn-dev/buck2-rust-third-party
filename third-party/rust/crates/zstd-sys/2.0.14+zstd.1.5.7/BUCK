@@ -1,76 +1,40 @@
-load("@prelude//toolchains:rust.bzl", "system_rust_toolchain")
-load("@prelude//toolchains:cxx.bzl", "system_cxx_toolchain")
-
+load("@prelude//rust:cargo_package.bzl", "cargo")
+load("@prelude//rust:cargo_buildscript.bzl", "buildscript_run")
 load("//third-party/rust/crates/zstd-sys/2.0.14+zstd.1.5.7:build.bzl", "get_rust_features")
 
 
-# C library for zstd
-cxx_library(
-    name = "zstd_c",
-    srcs = glob([
-        "zstd/lib/common/*.c",
-        "zstd/lib/compress/*.c",
-        "zstd/lib/decompress/*.c",
-    ]) + select({
-        "DEFAULT": ["zstd/lib/decompress/huf_decompress_amd64.S"],
-        "ovr_config//os:windows": [],
-    }),
-    headers = glob([
-        "zstd/lib/**/*.h",
-        "wasm-shim/**/*.h",
-    ]),
-    # Use header_namespace and exported_headers instead of include_dirs
-    header_namespace = "",
-    exported_headers = glob([
-        "zstd/lib/**/*.h",
-        "wasm-shim/**/*.h",
-    ]),
-    compiler_flags = [
-        "-DZSTD_LIB_DEPRECATED=0",
-        "-DXXH_PRIVATE_API",
-        "-DZSTDLIB_VISIBILITY=",
-        "-DZSTDERRORLIB_VISIBILITY=",
-        "-DZDICTLIB_VISIBILITY=",
-        "-fvisibility=hidden",
-        "-ffunction-sections",
-        "-fdata-sections",
-        "-fmerge-all-constants",
-        # Add include path flags directly as compiler flags
-        "-Izstd/lib/",
-        "-Izstd/lib/common",
-    ],
-    # We're creating a static library
-    preferred_linkage = "static",
-    visibility = [],
-)
-
-# Main Rust library
-rust_library(
-    name = "zstd-sys",
-    edition = "2021",
-    srcs = glob(["src/**/*.rs"]),
-    crate_root = "src/lib.rs",
-    features = get_rust_features(),
-    rustc_flags = [
-        # Add any necessary rustc flags here
-    ],
-    env = {
-        # Environment variables needed for build
-    },
+cargo.rust_binary(
+    name = "zstd-sys-build-script",
+    srcs = ["build.rs"],
+    crate_root = "build.rs",
+    crate = "build_script_build",
+    edition = "2018",
     deps = [
-        # Internal C library dependency
-        ":zstd_c",
-        # External dependencies would go here
-        # "//third-party/rust/crates/bindgen/0.71.0:bindgen",
-        # "//third-party/rust/crates/cc/1.0.45:cc",
-        # "//third-party/rust/crates/pkg-config/0.3.28:pkg-config",
+        "//third-party/rust/crates/cc:1.2.16",
+        "//third-party/rust/crates/pkg-config:",
+        "//third-party/rust/crates/bindgen:0.71.1",
     ],
-    visibility = ["PUBLIC"],
+    features = get_rust_features(),
 )
 
-# For use as a build target
-alias(
-    name = "zstd_sys",
-    actual = ":zstd-sys",
+buildscript_run(
+    name = "zstd-sys-buildscript-run",
+    package_name = "zstd-sys",
+    buildscript_rule = ":zstd-sys-build-script",
+    features = get_rust_features(),
+    version = "2.0.14+zstd.1.5.7",
+)
+
+cargo.rust_library(
+    name = "zstd-sys",
+    srcs = glob([
+        "src/**/*.rs",
+    ]),
+    crate_root = "src/lib.rs",
+    crate = "zstd_sys",
+    edition = "2018",
+    features = get_rust_features(),
+    rustc_flags = ["@$(location :zstd-sys-buildscript-run[rustc_flags])"],
+    deps = [],
     visibility = ["PUBLIC"],
 )
