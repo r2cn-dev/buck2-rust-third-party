@@ -1,14 +1,14 @@
-load("@prelude//toolchains:rust.bzl", "system_rust_toolchain")
+load("@prelude//rust:cargo_package.bzl", "cargo")
 
-rust_library(
+cargo.rust_library(
     name = "scopeguard",
-    crate = "scopeguard",
-    edition = "2021",
     srcs = glob(["src/**/*.rs"]),
+    crate = "scopeguard",
     crate_root = "src/lib.rs",
-    features = ["use_std"],
-    rustc_flags = [],
-    env = {},
-    deps = [],
+    edition = "2015",
+    features = [
+        "default",
+        "use_std",
+    ],
     visibility = ["PUBLIC"],
 )

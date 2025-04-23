@@ -21,21 +21,8 @@ cargo.rust_binary(
         "//third-party/rust/crates/winapi/0.3.9:winapi", # --config rust.features=everything,impl-debug,impl-default --config rust.target=i686-pc-windows-gnu
         # ---
 
-        # zstd-sys
-        "//third-party/rust/crates/zstd-sys/2.0.13+zstd.1.5.6:zstd-sys",
-        "//third-party/rust/crates/zstd-sys/2.0.14+zstd.1.5.7:zstd-sys",
-        # ---
-
-        # zstd-safe
-        "//third-party/rust/crates/zstd-safe/7.2.1:zstd-safe",
-
-        # libc
-        "//third-party/rust/crates/libc/0.2.169:libc",
-        # ---
-
-        # foreign-types-shared/
-        "//third-party/rust/crates/foreign-types-shared/0.1.1:foreign-types-shared",
-        "//third-party/rust/crates/foreign-types-shared/0.3.1:foreign-types-shared",
+        # openssl-
+        "//third-party/rust/crates/openssl/0.10.68:openssl",
         # ---
     ],
     visibility = ["PUBLIC"],
