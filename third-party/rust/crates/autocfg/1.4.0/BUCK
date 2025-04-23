@@ -1,14 +1,10 @@
-load("@prelude//toolchains:rust.bzl", "system_rust_toolchain")
+load("@prelude//rust:cargo_package.bzl", "cargo")
 
-rust_library(
+cargo.rust_library(
     name = "autocfg",
-    crate = "autocfg",  # Explicitly set crate name
-    edition = "2015",
     srcs = glob(["src/**/*.rs"]),
+    crate = "autocfg",
     crate_root = "src/lib.rs",
-    features = [],
-    rustc_flags = [],
-    env = {},
-    deps = [],
+    edition = "2015",
     visibility = ["PUBLIC"],
 )

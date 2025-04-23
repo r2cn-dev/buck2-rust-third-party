@@ -1,14 +1,10 @@
-load("@prelude//toolchains:rust.bzl", "system_rust_toolchain")
+load("@prelude//rust:cargo_package.bzl", "cargo")
 
-rust_library(
+cargo.rust_library(
     name = "tinyvec_macros",
-    crate = "tinyvec_macros",
-    edition = "2024",
     srcs = glob(["src/**/*.rs"]),
+    crate = "tinyvec_macros",
     crate_root = "src/lib.rs",
-    features = [],
-    rustc_flags = [],
-    env = {},
-    deps = [],
+    edition = "2018",
     visibility = ["PUBLIC"],
 )

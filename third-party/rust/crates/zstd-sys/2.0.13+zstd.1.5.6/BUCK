@@ -1,69 +1,67 @@
+load("@prelude//rust:cargo_buildscript.bzl", "buildscript_run")
 load("@prelude//rust:cargo_package.bzl", "cargo")
 
-# Define available features based on Cargo.toml features
-FEATURES = {
-    "debug": [],
-    "default": ["legacy", "zdict_builder"],
-    "experimental": [],
-    "fat-lto": [],
-    "legacy": [],
-    "no_asm": [],
-    "no_wasm_shim": [],
-    "non-cargo": [],
-    "pkg-config": [],
-    "std": [],
-    "thin": [],
-    "thin-lto": [],
-    "zdict_builder": [],
-    "zstdmt": [],
-}
-
-# The main zstd-sys Rust library
 cargo.rust_library(
     name = "zstd-sys",
-    srcs = glob([
-        "src/**/*.rs",
-    ]),
+    srcs = glob(["src/**/*.rs"]),
+    crate = "zstd_sys",
     crate_root = "src/lib.rs",
     edition = "2018",
-    rustc_flags = [
-        "--cap-lints=warn",
-        "-Ccodegen-units=1",
-    ],
-    features = FEATURES["default"],  # Use default features
-    deps = [
-        "//third-party/rust/crates/libc/0.2.169:libc",
-    ],
     env = {
-        # Environment variables that would typically be set by build.rs
-        "CARGO_FEATURE_DEFAULT": "1",
-        "CARGO_FEATURE_LEGACY": "1",
-        "CARGO_FEATURE_ZDICT_BUILDER": "1",
+        "OUT_DIR": "$(location :zstd-sys-build-script-run[out_dir])",
     },
+    features = [
+        "default",
+        "experimental",
+        "legacy",
+        "std",
+        "zdict_builder",
+    ],
+    rustc_flags = [
+        "-Lnative=$(location :zstd-sys-build-script-run[out_dir])",
+        "-lstatic=zstd",
+    ],
     visibility = ["PUBLIC"],
 )
 
-# Create targets for each feature combination
-cargo.rust_library(
-    name = "zstd-sys-experimental",
-    srcs = glob([
+cargo.rust_binary(
+    name = "zstd-sys-build-script-build",
+    srcs = ["build.rs", "zdict.h", "zstd.h"] + glob([
         "src/**/*.rs",
-    ]),
-    crate_root = "src/lib.rs",
+        "zstd/lib/**/*.c", 
+        "zstd/lib/**/*.h",
+        "zstd/lib/**/*.S",
+    ]) + glob(["wasm-shim/**/*.h"]),
+    crate = "build_script_build",
+    crate_root = "build.rs",
     edition = "2018",
-    rustc_flags = [
-        "--cap-lints=warn",
-        "-Ccodegen-units=1",
+    features = [
+        "default",
+        "experimental",
+        "legacy",
+        "std",
+        "zdict_builder",
     ],
-    features = FEATURES["default"] + ["experimental"],
-    deps = [
-        "//third-party/rust/crates/libc/0.2.169:libc",
-    ],
-    env = {
-        "CARGO_FEATURE_DEFAULT": "1",
-        "CARGO_FEATURE_LEGACY": "1",
-        "CARGO_FEATURE_ZDICT_BUILDER": "1",
-        "CARGO_FEATURE_EXPERIMENTAL": "1",
-    },
     visibility = ["PUBLIC"],
+    deps = [
+        "//third-party/rust/crates/cc/1.2.1:cc",
+        "//third-party/rust/crates/pkg-config/0.3.31:pkg-config",
+    ],
+)
+
+buildscript_run(
+    name = "zstd-sys-build-script-run",
+    package_name = "zstd-sys",
+    buildscript_rule = ":zstd-sys-build-script-build",
+    env = {
+        "OPT_LEVEL": "3",
+    },
+    features = [
+        "default",
+        "experimental",
+        "legacy",
+        "std",
+        "zdict_builder",
+    ],
+    version = "2.0.13+zstd.1.5.6",
 )
