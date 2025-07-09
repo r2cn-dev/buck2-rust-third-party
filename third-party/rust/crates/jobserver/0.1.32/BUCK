@@ -19,6 +19,9 @@ cargo.rust_library(
         "macos-x86_64": dict(
             deps = ["//third-party/rust/crates/libc/0.2.171:libc"],
         ),
+        "linux-riscv64": dict(
+            deps = ["//third-party/rust/crates/libc/0.2.171:libc"],
+        ),
     },
     visibility = ["PUBLIC"],
 )
